@@ -1,6 +1,7 @@
 import streamlit as st
 
 # "session" means whatever is going on in ur browser and "state" means whatever u have stored in ur variables to do work for later. you can say so that session_state use for "storing information" . 
+# you can keep track of variables and objects during a user's session through something called Session State. 
 # session_state is like an object shows in {} curly bracket 
 st.session_state
 # answer will be this 

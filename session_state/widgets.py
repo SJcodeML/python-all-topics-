@@ -1,5 +1,7 @@
 import streamlit as st
 
+# what are widgets : something functional 
+
 # buff will hold the second column object. The name "buff" (short for "buffer", I imagine) suggests that this column is probably intended to create some visual space or separation between the other two columns.
 col1 , buff , col2 = st.columns([1,0.5,3])
 

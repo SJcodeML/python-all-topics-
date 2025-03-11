@@ -1,0 +1,13 @@
+Sure! Let's break it down:
+
+In programming, **serialization** is like taking a snapshot of an object (like a list or a dictionary), turning it into a format (like a byte stream) that can be easily saved or sent somewhere else. Later, you can "unsnap" it (called deserialization) to get back the original object.
+
+In **Streamlit**, a tool for building web apps with Python, you can keep track of variables and objects during a user's session through something called **Session State**. Normally, this allows you to store all kinds of Python objects, even ones that aren't typically easy to save (like functions). 
+
+However, sometimes you might want to make sure that everything you're storing can definitely be converted to that snapshot format (pickle-serializable). To do this, Streamlit gives you an option called **runner.enforceSerializableSessionState**. When you turn this on (by changing a setting in a config file or using a command-line option), it will only let you store objects that can be converted to the snapshot format.
+
+So in simpler terms: this feature helps ensure that everything you want to keep in Session State can be reliably saved and restored later, especially useful if you're working in an environment that might stop supporting certain objects.
+
+
+
+LEARN MORE FROM DOCS : https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
