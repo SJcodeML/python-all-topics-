@@ -1,0 +1,1 @@
+this folder contains two folder in multi_page.py it has two code and pages structutre . first one is for pages folder and other include reports and tools and they both hve a default page multi_page.py
