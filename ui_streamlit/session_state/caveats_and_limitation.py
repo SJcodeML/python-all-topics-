@@ -29,4 +29,11 @@
 
 # st.button('My button', key='my_button')
 
+# In simple words, when using button-like widgets in Streamlit (like the `st.button`, `st.download_button`, and `st.file_uploader`), you can't save their states (like whether they are clicked or not) using the Session State API. Instead, these widgets automatically start as "not pressed" (or `False`) and their status only lasts for that single run of the app. Once the app reloads, their state resets, and they don't remember what happened before. 
+
+# If you have further questions or need more details, feel free to ask!
+
+# button ki default value not pressed hoti u can not change it in to pressed(true) agar set hogi bhi to sirf ek run k lia other wise wo wapas state pay ajaegi . so better not to change 
+
+
 # Throws an exception!

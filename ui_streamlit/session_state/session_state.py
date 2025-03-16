@@ -10,6 +10,14 @@ st.session_state
 {}
 # --------------------------------------------------
 
+# st.write(st.session_state)
+
+# # With magic:
+# st.session_state
+# --------------------------------------------------
+
+# Session State can also be cleared by going to Settings → Clear Cache, followed by Rerunning the app.
+# --------------------------------------------------
 
 # we are checking if session state has a_counter variable if not then assign the value 
 # same for boolean value then we will print session_state it will integrate both valuues in session_state

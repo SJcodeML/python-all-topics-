@@ -8,6 +8,111 @@ However, sometimes you might want to make sure that everything you're storing ca
 
 So in simpler terms: this feature helps ensure that everything you want to keep in Session State can be reliably saved and restored later, especially useful if you're working in an environment that might stop supporting certain objects.
 
-
+----------------------------------------------------------------------------
 
 LEARN MORE FROM DOCS : https://docs.streamlit.io/develop/api-reference/caching-and-state/st.session_state
+
+
+EXPLANATION OF DOCS:
+
+What is Serialization?
+
+Here's a simplified explanation of **Serializable Session State** in Streamlit:
+
+### What is Serialization?
+Serialization is the process of converting an object (like a list or a number) into a format that can be saved or transmitted and can be turned back into the original object later. In Python, this is often done using a module called `pickle`, which turns Python objects into a format called a byte stream.
+
+### Streamlit's Session State
+- **Session State:** In Streamlit, you can use *Session State* to remember information (like variables or user settings) as users interact with your app.
+- **Default Behavior:** By default, Streamlit allows you to store many types of data in the Session State, regardless of whether they can be converted into the byte stream format needed for serialization. This means you can store basic types (like numbers and booleans) as well as more complex data structures (like pandas dataframes or functions) without worrying about serialization.
+
+### When Serialization is Important
+Some environments or situations may require that all data stored in Session State be properly serialized. To prepare for those situations and to ensure your app works well in different environments, you can use a configuration option in Streamlit.
+
+### Configuration Option
+- **runner.enforceSerializableSessionState:** 
+  - This option, when set to `true`, restricts the Session State to only those objects that can be serialized with `pickle` (i.e., those that can be converted into the byte stream format).
+  - Enabling this helps you catch potential issues during development and ensures future compatibility. 
+
+### How to Enable It
+You can enable this option by:
+1. Creating a configuration file for your project.
+2. Using a command-line flag when running your Streamlit app.
+
+If you want more details on any specific part or need further clarification, feel free to ask!
+
+--------------------------------------------------
+byte stream.
+Explain me this with example
+
+
+A **byte stream** is a sequence of bytes, which is useful for various data storage and transmission tasks in computing. In the context of serialization (like when using Python's `pickle`), a byte stream is the format that data is converted into so that it can be saved to a file or transmitted over a network.
+
+### Understanding Byte Stream with an Example
+
+Let’s say you have a simple Python dictionary that you want to serialize and save. Here’s how it works step-by-step using the `pickle` module.
+
+#### Step 1: Import the `pickle` Module
+```python
+import pickle
+```
+
+#### Step 2: Create a Python Object
+We'll create a dictionary to serialize:
+```python
+data = {
+    "name": "Alice",
+    "age": 30,
+    "city": "Wonderland"
+}
+```
+
+#### Step 3: Serialize the Object to a Byte Stream
+Now, we can use `pickle` to convert the dictionary into a byte stream:
+```python
+# Serialize the object
+byte_stream = pickle.dumps(data)
+print(byte_stream)
+```
+
+The output will look like a sequence of bytes (it will appear as gibberish):
+```
+b'\x80\x04\x95\x1c\x00\x00\x00\x8c\x04name\x8c\x05Alice\x8c\x03ageK\x1e\x8c\x04city\x8c\tWonderland\x94.'
+```
+
+The `b` prefix indicates that this is a byte string.
+
+#### Step 4: Store the Byte Stream
+You can then save this byte stream to a file for later use:
+```python
+with open('data.pkl', 'wb') as file:
+    file.write(byte_stream)
+```
+
+#### Step 5: Deserialize the Byte Stream
+To retrieve the original object, you can read the byte stream back and convert it back into a Python object:
+```python
+# Read the byte stream from the file
+with open('data.pkl', 'rb') as file:
+    byte_stream_from_file = file.read()
+
+# Deserialize the byte stream
+retrieved_data = pickle.loads(byte_stream_from_file)
+print(retrieved_data)
+```
+
+This will output:
+```
+{'name': 'Alice', 'age': 30, 'city': 'Wonderland'}
+```
+
+### Summary
+- **Byte Streams**: A way to represent data in a sequence of bytes.
+- **Serialization**: Converting a Python object into a byte stream (and vice versa) using libraries like `pickle`.
+- **Use Case**: Saving data for later use or transmitting data over a network.
+
+If you need more information or clarification on any part, feel free to ask!
+
+
+-------------------------------------------
+When runner.enforceSerializableSessionState is set to true, Session State implicitly uses the pickle module, which is known to be insecure. Ensure all data saved and retrieved from Session State is trusted because it is possible to construct malicious pickle data that will execute arbitrary code during unpickling. Never load data that could have come from an untrusted source in an unsafe mode or that could have been tampered with. Only load data you trust.
